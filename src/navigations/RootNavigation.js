@@ -16,8 +16,20 @@ import AccountSecurityScreen from "../pages/settings/AccountSecurityScreen";
 import HelpScreen from "../pages/settings/HelpScreen";
 import NotificationSettingsScreen from "../pages/settings/NotificationSettingsScreen";
 import ProfileEditScreen from "../pages/settings/ProfileEditScreen";
+import ToDoScreen from "../utils/ToDoScreen";
+import Chat from "../components/Chat";
 
 const Stack = createStackNavigator();
+
+// function ChatStack() {
+//   return (
+//     <Stack.Navigator defaultScreenOptions={MessagesScreen}>
+//       <Stack.Screen name='Home' component={MessagesScreen} />
+//       <Stack.Screen name='Chat' component={Chat} />
+//     </Stack.Navigator>
+//   );
+// }
+
 
 const RootNavigation = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -42,6 +54,7 @@ const RootNavigation = () => {
             component={BottomNavigation}
           />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          
           <Stack.Screen
             name="MessagesScreen"
             options={{
@@ -55,6 +68,7 @@ const RootNavigation = () => {
             name="MessageScreen"
             component={MessageScreen}
           />
+          <Stack.Screen name='Chat' component={Chat} />
           <Stack.Screen
             options={{
               headerTitle: "Ayarlar",
@@ -102,6 +116,7 @@ const RootNavigation = () => {
             name="ProfileEditScreen"
             component={ProfileEditScreen}
           />
+          <Stack.Screen name="ToDoScreen" component={ToDoScreen} />
         </>
       ) : (
         <>
