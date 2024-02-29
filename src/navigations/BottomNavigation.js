@@ -9,25 +9,28 @@ import { Text, View, Pressable } from "react-native";
 import { colors } from "../utils/consts";
 import { Octicons } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { Feather } from '@expo/vector-icons';
-import { EvilIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Feather } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
-
   const navigation = useNavigation();
+
+  const navigateToPostScreen = () => {
+    navigation.navigate("PostScreen");
+  };
 
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 60
+          height: 60,
         },
       }}
     >
@@ -48,15 +51,20 @@ const BottomNavigation = () => {
           title: "Logo",
           headerRight: () => (
             <View className="pr-3 flex flex-row gap-4">
-              <EvilIcons onPress={() => navigation.navigate("SearchScreen")} name="search" size={32} color="black" />
-              <Pressable onPress={() => navigation.navigate("MessagesScreen")} >
+              <EvilIcons
+                onPress={() => navigation.navigate("SearchScreen")}
+                name="search"
+                size={32}
+                color="black"
+              />
+              <Pressable onPress={() => navigation.navigate("MessagesScreen")}>
                 <AntDesign name="message1" size={24} color="black" />
-                <View className="bg-[#FF7511] flex p-1 rounded-full absolute -right-2 -top-2" >
+                <View className="bg-[#FF7511] flex p-1 rounded-full absolute -right-2 -top-2">
                   <Text className="text-[10px] text-white">12</Text>
                 </View>
               </Pressable>
             </View>
-          )
+          ),
         }}
       />
       <Tab.Screen
@@ -67,12 +75,12 @@ const BottomNavigation = () => {
           tabBarIcon: ({ focused, color }) =>
             focused ? (
               <Ionicons
-                name="ios-pie-chart"
+                name="pie-chart"
                 size={28}
                 color={colors["bottom-icon-color"]}
               />
             ) : (
-              <Ionicons name="ios-pie-chart-outline" size={24} color={color} />
+              <Ionicons name="pie-chart-outline" size={24} color={color} />
             ),
         }}
       />
@@ -82,6 +90,7 @@ const BottomNavigation = () => {
         options={{
           tabBarIcon: () => (
             <Pressable
+              onPress={navigateToPostScreen}
               style={{
                 backgroundColor: "white",
                 padding: 6,
@@ -122,7 +131,11 @@ const BottomNavigation = () => {
           title: "Notification",
           tabBarIcon: ({ focused, color }) =>
             focused ? (
-              <FontAwesome name="bell" size={24} color={colors["bottom-icon-color"]} />
+              <FontAwesome
+                name="bell"
+                size={24}
+                color={colors["bottom-icon-color"]}
+              />
             ) : (
               <FontAwesome name="bell-o" size={22} color={color} />
             ),
@@ -133,26 +146,29 @@ const BottomNavigation = () => {
         component={ProfileScreen}
         options={{
           headerRight: () => (
-            <Pressable onPress={() => navigation.navigate("SettingsScreen")} className="pr-3">
+            <Pressable
+              onPress={() => navigation.navigate("SettingsScreen")}
+              className="pr-3"
+            >
               <Feather name="menu" size={28} color="white" />
             </Pressable>
           ),
           headerStyle: {
-            backgroundColor: colors["bottom-icon-color"]
+            backgroundColor: colors["bottom-icon-color"],
           },
           headerTitleStyle: {
-            color: "white"
+            color: "white",
           },
           title: "Profile",
           tabBarIcon: ({ focused, color }) =>
             focused ? (
               <Ionicons
-                name="ios-person"
+                name="person"
                 size={28}
                 color={colors["bottom-icon-color"]}
               />
             ) : (
-              <Ionicons name="ios-person-outline" size={24} color={color} />
+              <Ionicons name="person-outline" size={24} color={color} />
             ),
         }}
       />

@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../pages/LoginScreen";
 import RegisterScreen from "../pages/RegisterScreen";
-import SplashScreen from "../pages/SplashScreen";
 import BottomNavigation from "./BottomNavigation";
 import SearchScreen from '../pages/SearchScreen'
 import MessagesScreen from "../pages/MessagesScreen";
 import MessageScreen from "../pages/MessageScreen";
-import ProfileScreen from "../pages/ProfileScreen";
 import SettingsScreen from '../pages/SettingsScreen'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from "../../config/FirebaseConfig";
@@ -16,6 +14,7 @@ import AccountSecurityScreen from "../pages/settings/AccountSecurityScreen";
 import HelpScreen from "../pages/settings/HelpScreen";
 import NotificationSettingsScreen from "../pages/settings/NotificationSettingsScreen";
 import ProfileEditScreen from "../pages/settings/ProfileEditScreen";
+import PostScreen from "../pages/PostScreen";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +41,7 @@ const RootNavigation = () => {
             component={BottomNavigation}
           />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="PostScreen" component={PostScreen} />
           <Stack.Screen
             name="MessagesScreen"
             options={{

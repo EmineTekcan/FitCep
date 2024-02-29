@@ -20,7 +20,7 @@ const RegisterScreen = () => {
         const user = userCredential.user;
 
         updateProfile(user, {
-          displayName: fullName,
+          displayName: username,
         })
           .then(() => {
             console.log("Kullanıcı profil güncellendi");

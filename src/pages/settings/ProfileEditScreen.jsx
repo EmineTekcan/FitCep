@@ -46,6 +46,44 @@ const ProfileEditScreen = () => {
     }
   };
 
+  const uploadImage = async (uri, userId) => {
+    const fileName = `userProfilePictures/${userId}.jpg`;
+    const storage = getStorage();
+    const storageRef = sRef(storage, fileName);
+
+    getDownloadURL(storageRef)
+      .then(() => {
+        deleteObject(storageRef)
+          .then(() => {
+            uploadFile(uri, storageRef);
+          })
+          .catch((error) => {
+            console.error("Error deleting the old file:", error);
+          });
+      })
+      .catch((error) => {
+        if (error.code === "storage/object-not-found") {
+          uploadFile(uri, storageRef);
+        } else {
+          console.error("Error checking for the file:", error);
+        }
+      });
+  };
+
+  const uploadFile = (uri, storageRef) => {
+    fetch(uri)
+      .then((response) => response.blob())
+      .then((blob) => {
+        uploadBytes(storageRef, blob)
+          .then(() => {
+            console.log("Uploaded a blob or file!");
+          })
+          .catch((error) => {
+            console.error("Upload failed", error);
+          });
+      });
+  };
+
   async function getUserPhotoUrl(userId) {
     const storage = getStorage();
     const photoRef = sRef(storage, `userProfilePictures/${userId}.jpg`);
@@ -90,43 +128,6 @@ const ProfileEditScreen = () => {
     }
   };
 
-  const uploadImage = async (uri, userId) => {
-    const fileName = `userProfilePictures/${userId}.jpg`;
-    const storage = getStorage();
-    const storageRef = sRef(storage, fileName);
-
-    getDownloadURL(storageRef)
-      .then(() => {
-        deleteObject(storageRef)
-          .then(() => {
-            uploadFile(uri, storageRef);
-          })
-          .catch((error) => {
-            console.error("Error deleting the old file:", error);
-          });
-      })
-      .catch((error) => {
-        if (error.code === "storage/object-not-found") {
-          uploadFile(uri, storageRef);
-        } else {
-          console.error("Error checking for the file:", error);
-        }
-      });
-  };
-
-  const uploadFile = (uri, storageRef) => {
-    fetch(uri)
-      .then((response) => response.blob())
-      .then((blob) => {
-        uploadBytes(storageRef, blob)
-          .then(() => {
-            console.log("Uploaded a blob or file!");
-          })
-          .catch((error) => {
-            console.error("Upload failed", error);
-          });
-      });
-  };
 
   const updateProfile = async () => {
     const docRef = doc(firestore, "users", userId);
